@@ -3,7 +3,7 @@
 An agentic AI system that automatically fetches daily WHOOP biometric data, combines it with personal daily notes, generates an AI-powered health summary, and emails it every morning.
 
 ## Demo
-![WHOOP Health Report](screenshot.png)
+
 
 ## What It Does
 - Fetches real-time sleep, recovery, strain and workout data from WHOOP API
