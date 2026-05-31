@@ -9,14 +9,14 @@ An agentic AI system that automatically fetches daily WHOOP biometric data, comb
 ## What It Does
 - Fetches real-time sleep, recovery, strain and workout data from WHOOP API
 - Reads personal daily notes (food, mood, stress, water intake)
-- Uses Google Gemini AI to generate a personalized health summary
+- Uses Claude AI to generate a personalized health summary
 - Sends a beautifully formatted HTML email every morning at 10am
 - Automatically refreshes OAuth tokens — fully autonomous, no manual login
 
 ## Tech Stack
 - **Python** — core agent logic
 - **WHOOP API** — biometric data (sleep, recovery, strain)
-- **Google Gemini AI** — health summary generation
+- **Claude AI by Anthropic** — health summary generation
 - **OAuth 2.0** — secure WHOOP authentication
 - **Gmail SMTP** — automated email delivery
 - **Flask** — OAuth callback server
@@ -31,7 +31,7 @@ Fetch WHOOP Data
 Read personal notes.txt
 (food, mood, stress, water)
 ↓
-Gemini AI generates
+Claude AI generates
 personalized health summary
 ↓
 HTML email sent automatically
@@ -42,7 +42,7 @@ notes.txt cleared for next day
 whoop-agent/
 ├── main.py          # Agent orchestrator + OAuth + scheduler
 ├── whoop.py         # WHOOP API integration
-├── ai.py            # Gemini AI summary generation
+├── ai.py            # Claude AI summary generation
 ├── email_sender.py  # HTML email formatting + sending
 ├── .env             # API keys (gitignored)
 ├── tokens.json      # OAuth tokens (gitignored)
@@ -60,16 +60,16 @@ The daily email includes:
 1. Clone the repo
 2. Install dependencies:
 ```bash
-   pip install requests google-genai python-dotenv schedule flask
+   pip install requests anthropic python-dotenv schedule flask
 ```
 3. Register app at developer.whoop.com and get Client ID and Secret
-4. Get Google Gemini API key at aistudio.google.com
+4. Get Claude API key at console.anthropic.com
 5. Get Gmail app password at myaccount.google.com
 6. Create `.env` file:
 WHOOP_CLIENT_ID=your_client_id
 WHOOP_CLIENT_SECRET=your_client_secret
 WHOOP_REDIRECT_URI=http://localhost:5000/callback
-GEMINI_API_KEY=your_gemini_key
+ANTHROPIC_API_KEY=your_claude_key
 GMAIL_ADDRESS=your_gmail
 GMAIL_APP_PASSWORD=your_app_password
 EMAIL_RECIPIENT=your_email
@@ -82,7 +82,7 @@ EMAIL_RECIPIENT=your_email
 ## Skills Demonstrated
 - REST API integration with OAuth 2.0 authentication
 - Agentic AI design and autonomous task execution
-- LLM integration (Google Gemini)
+- LLM integration (Claude AI)
 - Automated data pipelines
 - HTML email generation
 - Scheduled task automation
