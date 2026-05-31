@@ -4,6 +4,7 @@ An agentic AI system that automatically fetches daily WHOOP biometric data, comb
 
 ## Demo
 ![WHOOP Health Report](Screenshot.png)
+
 *Sample daily health report email with AI-generated summary*
 
 ## What It Does
