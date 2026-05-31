@@ -1,14 +1,13 @@
-from google import genai
+import anthropic
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
-client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
 def generate_summary(whoop_data, notes):
-    prompt = f"""
-You are a personal health coach. Analyze this WHOOP health data and write a friendly daily health summary email.
+    prompt = f"""You are a personal health coach. Analyze this WHOOP health data and write a friendly daily health summary email.
 
 PERSON: {whoop_data['name']}
 
@@ -36,10 +35,11 @@ STRAIN:
 PERSONAL NOTES:
 {notes if notes else "No notes today."}
 
-Write a friendly summary with sleep analysis, recovery insights, how notes affected data, and 3 recommendations for tomorrow.
-"""
-    response = client.models.generate_content(
-        model="gemini-2.0-flash-lite",
-        contents=prompt
+Write a friendly summary with sleep analysis, recovery insights, how notes affected data, and 3 recommendations for tomorrow."""
+
+    message = client.messages.create(
+        model="claude-sonnet-4-5",
+        max_tokens=1000,
+        messages=[{"role": "user", "content": prompt}]
     )
-    return response.text
+    return message.content[0].text
