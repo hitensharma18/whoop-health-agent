@@ -138,4 +138,9 @@ if __name__ == "__main__":
         app.run(port=5000)
     else:
         print("Tokens found! Starting scheduler...")
-        run_scheduler()
+        print("Type 'test' to test now:")
+        user_input = input()
+        if user_input.lower() == "test":
+            daily_job()
+        else:
+            run_scheduler()
