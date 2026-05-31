@@ -1,13 +1,17 @@
 import anthropic
 import os
+import re
 from dotenv import load_dotenv
+from datetime import datetime, timedelta
 
 load_dotenv()
 
 client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
 def generate_summary(whoop_data, notes):
-    prompt = f"""You are a personal health coach. Analyze this WHOOP health data and write a friendly daily health summary email.
+    yesterday = (datetime.now() - timedelta(days=1)).strftime("%A, %B %d, %Y")
+
+    prompt = f"""You are a personal health coach. Analyze this WHOOP health data from {yesterday} and write a friendly daily health summary email.
 
 PERSON: {whoop_data['name']}
 
@@ -35,11 +39,16 @@ STRAIN:
 PERSONAL NOTES:
 {notes if notes else "No notes today."}
 
-Write a friendly summary with sleep analysis, recovery insights, how notes affected data, and 3 recommendations for tomorrow."""
+Write a concise friendly summary in 3-4 short paragraphs max. Start by mentioning this is the health report for {yesterday}. No markdown formatting, some bullet points, plain text only. Cover: overall assessment, sleep analysis, recovery insights,use emoji as well not too much, and 3 quick recommendations for tomorrow. Make it actionable and easy to understand. Use a warm encouraging tone. Avoid technical jargon."""
 
     message = client.messages.create(
         model="claude-sonnet-4-5",
         max_tokens=1000,
         messages=[{"role": "user", "content": prompt}]
     )
-    return message.content[0].text
+
+    text = message.content[0].text
+    text = re.sub(r'#{1,3}\s*', '', text)
+    text = re.sub(r'\*\*(.*?)\*\*', r'\1', text)
+    text = re.sub(r'\*(.*?)\*', r'\1', text)
+    return text
