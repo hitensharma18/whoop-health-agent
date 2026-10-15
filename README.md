@@ -1,4 +1,4 @@
-# WHOOP Health Intelligence Agent
+# WHOOP Health Intelligence Agent 🏃
 
 An agentic AI system that automatically fetches daily WHOOP biometric data, combines it with personal daily notes, generates an AI-powered health summary, and emails it every morning.
 
